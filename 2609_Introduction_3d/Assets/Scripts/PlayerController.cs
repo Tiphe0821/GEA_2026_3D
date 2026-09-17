@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float jumpPower = 5.0f;
     public float gravity = -20.0f;
 
+    private Vector2 lookInput;
+    private float mouseSensitivity = 0.2f;
+
     private float verticalVelocity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,10 +34,16 @@ public class PlayerController : MonoBehaviour
             verticalVelocity = jumpPower;
         }
     }
+    private void OnLook(InputValue value)
+    {
+        lookInput = value.Get<Vector2>();
+    }
 
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(0f, lookInput.x * mouseSensitivity, 0f);
+
         if(controller.isGrounded && verticalVelocity < 0.0f)
         {
             verticalVelocity = -2.0f;
@@ -42,7 +51,9 @@ public class PlayerController : MonoBehaviour
 
         verticalVelocity += gravity * Time.deltaTime;
 
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 move = transform.forward * moveInput.y + transform.right * moveInput.x;
+
+        //Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         move = move * moveSpeed;
         move.y = verticalVelocity;
 
