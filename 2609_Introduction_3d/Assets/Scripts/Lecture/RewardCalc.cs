@@ -50,7 +50,7 @@ public class RewardCalc : MonoBehaviour
 
 
         // 조건문 X
-        Debug.Log(hour + " : " + zero + minute + " : " + zero + second);        // 이건 아닐텐데? 알았다
+        //Debug.Log(hour + " : " + zero + minute + " : " + zero + second);        // 이건 아닐텐데? 알았다
 
         int minute_10 = minute / 10;
         int minute_01 = minute % 10;
@@ -58,9 +58,23 @@ public class RewardCalc : MonoBehaviour
         int second_10 = second / 10;
         int second_01 = second % 10;
 
+        // 시간 출력
         Debug.Log(hour + ":" + minute_10 + minute_01 + ":" + second_10 + second_01);
 
         // 조건문 O
         // Debug.Log(hour + " : " + (minute > 10 ? minute : "0" + minute ) + " : " + (second > 10 ? second : "0" + second));
+
+        // 골드 분배
+        Debug.Log(gold / 4 + " 골드, " + gold % 4 + " 리더 보너스");
+
+        // 경험치 획득 
+        Debug.Log("기본 경험치 : " + expPerKill * kills + " 배율 경험치 : " + expPerKill * kills * expRate);
+
+        // 다음 레벨까지 필요한 경험치
+        Debug.Log("현재 레벨 : " + (expPerKill * kills / 100) + " 다음 레벨까지 : " + (totalDamage * kills % 100));
+
+        // 평균 데미지
+        Debug.Log("평균 데미지 : " + (float)totalDamage / hits);
+
     }
 }
